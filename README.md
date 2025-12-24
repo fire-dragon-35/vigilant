@@ -85,7 +85,7 @@ This project was created as an open source solution to that universal problem, d
 ### Agent Installation
 ```powershell
 # Download latest release
-Invoke-WebRequest -Uri https://github.com/yourusername/vigilant/releases/latest/download/vigilant-agent.zip -OutFile vigilant.zip
+Invoke-WebRequest -Uri https://github.com/alinde10/vigilant/releases/latest/download/vigilant-agent.zip -OutFile vigilant.zip
 Expand-Archive vigilant.zip -DestinationPath C:\Vigilant
 
 # Configure
@@ -103,10 +103,6 @@ Get-ScheduledTaskInfo -TaskName "VigilantAgent"
 python agent.py
 ```
 
-### Server Setup
-
-See [SERVER.md](docs/SERVER.md) for detailed server installation instructions.
-
 ---
 
 ## Project Status & Disclaimer
@@ -118,8 +114,8 @@ This project is in **active development** and is provided as-is under the MIT li
 ### Current Platform Support
 
 - ✅ **Windows 11**: Fully supported
-- 🔄 **Windows 10**: Planned (contributions welcome)
-- 🔄 **Linux**: Planned for future release
+- 🔄 **Windows 10**: Planned
+- 🔄 **Linux**: Planned
 
 ### Important Legal Notice
 
@@ -147,8 +143,6 @@ By contributing to this project, you confirm that:
 - Your contributions are made on your own time with your own resources
 - You are not bound by any conflicting agreements with employers or others
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for full contributor guidelines.
-
 ---
 
 ## Use Cases
@@ -173,17 +167,6 @@ While this tool was inspired by automotive HIL testing challenges, the architect
 
 ---
 
-## Documentation
-
-- [Installation Guide](docs/INSTALL.md) - Detailed Windows installation steps
-- [Configuration Reference](docs/CONFIG.md) - All configuration options
-- [Server Setup](docs/SERVER.md) - Central server deployment
-- [Agent Development](docs/AGENT.md) - Contributing to agent code
-- [API Documentation](docs/API.md) - REST API reference
-- [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
-
----
-
 ## Architecture
 
 ### Agent Design
@@ -201,7 +184,6 @@ The server provides:
 - **REST API**: For agent communication and dashboard access
 - **Database**: PostgreSQL for historical data and current state
 - **Dashboard**: Web interface for visualization
-- **Extensible**: Plugin architecture for custom metrics
 
 ### Why Windows Task Scheduler?
 
@@ -209,34 +191,6 @@ The server provides:
 - **Auto-restart**: Handles failures automatically
 - **Logging**: Integrated with Windows Event Viewer
 - **Simplicity**: No complex service installation required
-
----
-
-## Roadmap
-
-### Current Focus (v0.1 - v0.3)
-
-- ✅ Windows 11 agent with Task Scheduler
-- ✅ Basic heartbeat and status reporting
-- ✅ Central server with REST API
-- 🔄 Web dashboard for visualization
-- 🔄 Historical data and trends
-
-### Near Term (v0.4 - v0.6)
-
-- ⏳ Windows 10 support
-- ⏳ Custom metrics and alerts
-- ⏳ Test process detection
-- ⏳ Multi-server support
-
-### Future (v1.0+)
-
-- ⏳ Linux agent support
-- ⏳ Advanced analytics
-- ⏳ Slack/Teams integration
-- ⏳ Rig reservation system
-
-**Want to contribute?** Check the [Issues](https://github.com/yourusername/vigilant/issues) page for good first issues.
 
 ---
 
@@ -250,7 +204,6 @@ Contributions are welcome! This is a community-driven open source project.
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes with clear commit messages
 4. Add tests if applicable
-5. Ensure code follows project style (see [CONTRIBUTING.md](CONTRIBUTING.md))
 6. Push to your fork
 7. Open a Pull Request
 
@@ -268,8 +221,6 @@ Contributions are welcome! This is a community-driven open source project.
 - Dashboard improvements
 - Bug reports and fixes
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
 ---
 
 ## Commercial Services
@@ -280,8 +231,6 @@ While Vigilant is free and open source, commercial services are available for or
 
 - **Implementation Support**: Help deploying Vigilant in your environment
 - **Custom Features**: Development of organization-specific capabilities
-- **Integration Services**: Connect Vigilant with your existing tools
-- **Training**: Team training on deployment and administration
 - **Support Contracts**: Ongoing support and maintenance agreements
 
 **Contact**: [anton4linden@gmail.com](mailto:anton4linden@gmail.com)
@@ -316,23 +265,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-
----
-
-## Acknowledgments
-
-- Built with Python, FastAPI, and PostgreSQL
-- Inspired by the challenges of distributed test infrastructure management
-- Thanks to all contributors and users of this project
-
----
-
-## Project Links
-
-- **Documentation**: [docs/](docs/)
-- **Issue Tracker**: [GitHub Issues](https://github.com/yourusername/vigilant/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/vigilant/discussions)
-- **Releases**: [GitHub Releases](https://github.com/yourusername/vigilant/releases)
 
 ---
 
