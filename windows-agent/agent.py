@@ -11,6 +11,7 @@ from typing import Dict, Any
 import sys
 from logger import setup_logger
 
+VERSION = "0.1"
 CONFIG_PATH = Path(__file__).parent / "config.json"
 
 logger = setup_logger()
@@ -86,7 +87,7 @@ class Agent:
             **network_info,
             **system_status,
             **self.metadata,
-            "agent_version": "1.0.0",
+            "agent_version": VERSION,
             "os": platform.platform(),
         }
 
