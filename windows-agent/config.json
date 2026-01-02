@@ -9,7 +9,7 @@
     "ecu_type": "BCM_Gen3",
     "contact": "john.doe@company.com"
   },
-  "test_process_names": [
+  "process_names": [
     "CANoe.exe",
     "Vector_CANoe.exe",
     "HILSoftware.exe",
