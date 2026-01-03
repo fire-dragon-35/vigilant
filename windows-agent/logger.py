@@ -1,30 +1,15 @@
 # logger.py
-"""
-Logging utility
-"""
 
 import logging
 import sys
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
 
-NAME = "vigilant"
+NAME = "Vigilant"
 LOG_DIR_PATH = Path(__file__).parent / "logs"
 
 
 def setup_logger(name=NAME, log_dir_path=LOG_DIR_PATH, level=logging.INFO):
-    """
-    Set up simple logger with console and file output
-
-    Args:
-        name: Logger name
-        log_dir_path: Path object for directory for log files
-        level: Logging level (DEBUG, INFO, WARNING, ERROR)
-
-    Returns:
-        Configured logger
-    """
-
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
 

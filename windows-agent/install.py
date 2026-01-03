@@ -186,23 +186,20 @@ def main():
         description="Install Vigilant Agent",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-            Examples:
-            python install.py --rig-id RIG-07 --server-url https://vigilant.io --api-key abc123
-            python install.py --rig-id TEST-01 --server-url http://localhost:5000 --api-key test
+            Example:
+            py install.py --rig-id Everest --server-url https://server//name --api-key abc123
             """,
     )
 
-    parser.add_argument("--rig-id", required=True, help="Rig ID (e.g., RIG-07)")
+    parser.add_argument("--rig-id", required=True)
+    parser.add_argument("--server-url", required=True)
     parser.add_argument(
-        "--server-url", required=True, help="Server URL (e.g., https://vigilant.io)"
+        "--api-key", required=True, help="API key for server authentication"
     )
-    parser.add_argument("--api-key", required=True, help="API key for authentication")
 
     args = parser.parse_args()
 
-    installer = Installer(
-        rig_id=args.rig_id, server_url=args.server_url, api_key=args.api_key
-    )
+    installer = Installer(args.rig_id, args.server_url, args.api_key)
 
     success = installer.install()
     sys.exit(0 if success else 1)
@@ -212,7 +209,6 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        logger.info("")
         logger.info("Installation cancelled by user")
         sys.exit(1)
     except Exception as e:
