@@ -20,7 +20,6 @@ logger = setup_logger()
 class Agent:
     def __init__(self, config_path: Path = CONFIG_PATH) -> None:
         self.config = self._load_config(config_path)
-        self._validate_config()
         self.server_url: str = self.config["server_url"]
         self.api_key: str = self.config["api_key"]
         self.rig_id: str = self.config["rig_id"]
@@ -57,7 +56,6 @@ class Agent:
         for process in psutil.process_iter(["name"]):
             try:
                 process_name = process.info["name"]
-                result[process_name] = "not running"
                 if process_name in config_process_names:
                     logger.info(f"{process_name} is running")
                     result[process_name] = "running"
@@ -95,24 +93,29 @@ class Agent:
 
     def send_status(self, status: Dict[str, Any]):
         logger.info(f"Sending rig status to server at {self.server_url}")
-        response = requests.post(
-            f"{self.server_url}/api/heartbeat",
-            json=status,
-            headers={
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json",
-            },
-            timeout=15,
-        )
-
-        if response.status_code != 200:
-            logger.error(
-                f"Server returned status {response.status_code}\n{response.text}"
+        try:
+            response = requests.post(
+                f"{self.server_url}/api/heartbeat",
+                json=status,
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json",
+                },
+                timeout=15,
             )
+
+            if response.status_code != 200:
+                logger.error(
+                    f"Server returned status {response.status_code}\n{response.text}"
+                )
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to connect to server: {e}")
 
     def run(self) -> None:
         logger.info(f"Agent run at {datetime.now(timezone.utc).isoformat()}")
         status = self.collect_status()
+        logger.info(f"Collected status: {json.dumps(status, indent=2)}")
         self.send_status(status)
 
 
@@ -121,5 +124,5 @@ if __name__ == "__main__":
         agent = Agent()
         agent.run()
     except Exception as e:
-        logger.error(f"Fatal error\n{e}")
+        logger.error(f"Fatal error: {e}")
         sys.exit(1)

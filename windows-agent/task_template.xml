@@ -15,7 +15,7 @@
   </Triggers>
   <Principals>
     <Principal id="Author">
-      <UserId>S-1-5-18</UserId>
+      <LogonType>InteractiveToken</LogonType>
       <RunLevel>HighestAvailable</RunLevel>
     </Principal>
   </Principals>
@@ -30,6 +30,7 @@
       <Interval>PT1M</Interval>
       <Count>3</Count>
     </RestartOnFailure>
+    <Hidden>true</Hidden>
   </Settings>
   <Actions Context="Author">
     <Exec>

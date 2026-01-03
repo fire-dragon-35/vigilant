@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
 
-NAME = "Vigilant"
+NAME = "vigilant"
 LOG_DIR_PATH = Path(__file__).parent / "logs"
 
 

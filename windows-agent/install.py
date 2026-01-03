@@ -50,13 +50,13 @@ class Installer:
         )
 
         if result.returncode != 0:
-            logger.error(f"Failed to install dependencies\n{result.stderr.decode()}")
+            logger.error(f"Failed to install dependencies: {result.stderr.decode()}")
             return False
         return True
 
     def _update_config(self) -> bool:
-        logger.info(f"Trying to update configuration file at {config_file}")
         config_file = self.agent_dir / "config.json"
+        logger.info(f"Trying to update configuration file at {config_file}")
         with open(config_file, "r") as f:
             config = json.load(f)
 
@@ -79,18 +79,19 @@ class Installer:
         )
 
         if result.returncode != 0:
-            logger.error(f"Agent test failed\n{result.stderr.decode()}")
+            logger.error(f"Agent test failed: {result.stderr.decode()}")
             return False
         return True
 
     def _create_scheduled_task(self) -> bool:
         logger.info("Creating scheduled task")
 
-        python_exe = sys.executable
+        # Run silently
+        python_exe = sys.executable.replace("python.exe", "pythonw.exe")
         agent_script = self.agent_dir / "agent.py"
         template_file = self.agent_dir / "task_template.xml"
 
-        with open(template_file, "r", encoding="utf-16") as f:
+        with open(template_file, "r", encoding="utf-8") as f:
             task_xml = f.read()
 
         task_xml = task_xml.format(
@@ -101,7 +102,7 @@ class Installer:
         )
 
         xml_file = self.agent_dir / "task_temp.xml"
-        with open(xml_file, "w", encoding="utf-16") as f:
+        with open(xml_file, "w", encoding="utf-8") as f:
             f.write(task_xml)
 
         # Delete task if already exists
@@ -117,7 +118,7 @@ class Installer:
         xml_file.unlink()
 
         if result.returncode != 0:
-            logger.error(f"Failed to create scheduled task\n{result.stderr.decode()}")
+            logger.error(f"Failed to create scheduled task: {result.stderr.decode()}")
             return False
         return True
 
@@ -129,7 +130,7 @@ class Installer:
         )
 
         if result.returncode != 0:
-            logger.error(f"Failed to start agent\n{result.stderr.decode()}")
+            logger.error(f"Failed to start agent: {result.stderr.decode()}")
             return False
         return True
 
@@ -144,10 +145,9 @@ class Installer:
         logger.info(f"Log Files:          {self.agent_dir / 'logs'}")
         logger.info("")
         logger.info("Useful Commands:")
-        logger.info("  View logs:      type logs\\vigilant.log")
-        logger.info("  Manual test:    python agent.py")
-        logger.info("  Check task:     schtasks /Query /TN VigilantAgent /FO LIST")
-        logger.info("  Uninstall:      python uninstall.py")
+        logger.info("Manual test:   python agent.py")
+        logger.info("Check task:    schtasks /Query /TN VigilantAgent /FO LIST")
+        logger.info("Uninstall:     python uninstall.py")
         logger.info("=" * 60)
 
     def install(self) -> bool:
@@ -212,5 +212,5 @@ if __name__ == "__main__":
         logger.info("Installation cancelled by user")
         sys.exit(1)
     except Exception as e:
-        logger.error(f"Installation failed\n{e}")
+        logger.error(f"Installation failed: {e}")
         sys.exit(1)

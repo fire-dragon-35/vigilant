@@ -1,11 +1,15 @@
 {
-  "server_url": "https://hil-dashboard.yourcompany.com",
-  "api_key": "rig-lab-a-07-secret-key-here",
-  "rig_id": "HIL-LAB-A-RIG-07",
+  "server_url": "http://localhost:8080",
+  "api_key": "abc123",
+  "rig_id": "Lenovo-Windows",
   "metadata": {
     "location": "Lab A - Building 3",
     "rack": "R07",
-    "capabilities": ["CAN", "LIN", "Ethernet"],
+    "capabilities": [
+      "CAN",
+      "LIN",
+      "Ethernet"
+    ],
     "ecu_type": "BCM_Gen3",
     "contact": "john.doe@company.com"
   },
